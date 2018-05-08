@@ -1,6 +1,7 @@
 package com.example.thiago.experimento20181;
 
 import android.content.Intent;
+import android.os.PersistableBundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,7 +27,12 @@ public class ListStudentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list_student);
 
         lvStudents = (ListView) findViewById(R.id.lv_students);
-        students = new ArrayList<Student>();
+        if (savedInstanceState != null){
+            students = (ArrayList<Student>) savedInstanceState.getSerializable("students");
+        }else{
+            students = new ArrayList<Student>();
+        }
+
         adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,students);
         lvStudents.setAdapter(adapter);
 
@@ -40,6 +46,12 @@ public class ListStudentActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putSerializable("students", students);
+        super.onSaveInstanceState(outState);
     }
 
     @Override
