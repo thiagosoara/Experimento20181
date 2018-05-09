@@ -29,9 +29,11 @@ public class FormStudentActivity extends AppCompatActivity {
                 student.setName(etName.getText().toString());
                 student.setEmail(etEmail.getText().toString());
                 student.setPhone(etPhone.getText().toString());
-                Intent it = getIntent();
+                StudentDAO dao = new StudentDAO(FormStudentActivity.this);
+                dao.insert(student);
+                /*Intent it = getIntent();
                 it.putExtra("student",student);
-                setResult(RESULT_OK, it);
+                setResult(RESULT_OK, it);*/
                 finish();
             }
         });

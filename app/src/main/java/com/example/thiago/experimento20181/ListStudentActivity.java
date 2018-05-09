@@ -27,14 +27,12 @@ public class ListStudentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list_student);
 
         lvStudents = (ListView) findViewById(R.id.lv_students);
-        if (savedInstanceState != null){
+        /*if (savedInstanceState != null){
             students = (ArrayList<Student>) savedInstanceState.getSerializable("students");
         }else{
             students = new ArrayList<Student>();
         }
-
-        adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,students);
-        lvStudents.setAdapter(adapter);
+*/
 
         FloatingActionButton btNew = (FloatingActionButton) findViewById(R.id.bt_new_student);
 
@@ -49,6 +47,15 @@ public class ListStudentActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        StudentDAO dao = new StudentDAO(this);
+        students = (ArrayList<Student>) dao.getAllStudents();
+        adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,students);
+        lvStudents.setAdapter(adapter);
+    }
+
+    /*@Override
     public void onSaveInstanceState(Bundle outState) {
         outState.putSerializable("students", students);
         super.onSaveInstanceState(outState);
@@ -63,5 +70,5 @@ public class ListStudentActivity extends AppCompatActivity {
                 adapter.notifyDataSetChanged();
             }
         }
-    }
+    }*/
 }
